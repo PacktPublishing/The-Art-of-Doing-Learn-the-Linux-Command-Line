@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#Touch a file if not already in existance and set its permissions
+
+echo -n "Enter a filename: "
+read filename
+
+filepath="$PWD/$filename"
+
+if [ -e "$filepath" ]; then
+	echo "File already exists...exiting."
+else
+	touch "$filepath"
+	echo "File created."
+	echo -n "Enter a permission code for the file (***): "
+	read permission
+	chmod "$permission" "$filepath"
+
+	if [ "$permission" = 777 ]; then
+		echo "All users have rwx permissions."
+	elif [ "$permission" = 666 ]; then
+		echo "All users have rw permissions."
+	elif [ "$permission" = 444 ]; then
+		echo "All users have r permissions."
+	else
+		echo "Permissions have been set to $permission"
+	fi
+fi

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#Touch all the files in a given directory and update their timestamp. 
+
+files="$PWD"/*
+
+#" " allows for the expansion of $ but not *
+#Therefore we shouldn't use double quotes here.
+#echo $files
+#echo "$files"
+
+for f in $files; do
+	touch "$f"
+done
+

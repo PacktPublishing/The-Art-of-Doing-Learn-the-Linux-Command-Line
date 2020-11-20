@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#Gather information for a specific internet device using ip and ping.
+
+echo -n "Enter your device name: "
+read device
+
+while [ "$choice" != 0 ]; do
+	echo
+	echo "Enter 1 to get your device IP."
+	echo "Enter 2 to get your device MAC."
+	echo "Enter 3 to test your network using PING."
+	echo "Enter 0 to quit."
+	echo -n "Enter your choice: "
+	read choice
+	echo
+
+	if [ "$choice" = 1 ]; then
+		ip=$(ip addr show "$device" | grep -w inet | awk -F" " '{ print $2 }')
+		echo "$device ip: $ip"
+	elif [ "$choice" = 2 ]; then
+		mac=$(ip addr show "$device" | grep -w ether | awk -F" " '{ print $2 }')
+		echo "$device mac: $mac"
+	elif [ "$choice" = 3 ]; then
+		echo -n "Please give a website or IP to ping: "
+		read website
+		echo "Testing network by pinging $website..."
+		status=$(ping -c 10 "$website" | grep -w packets | awk -F"," '{ print $3 }')
+		echo "Network strength: $status"
+	elif [ "$choice" = 0 ]; then
+		echo "Thank you, goodbye."
+	else
+		echo "That is not an option.  Ending program."
+		break
+	fi
+done

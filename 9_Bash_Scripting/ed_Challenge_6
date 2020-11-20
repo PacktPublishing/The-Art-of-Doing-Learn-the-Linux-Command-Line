@@ -1,0 +1,37 @@
+#!/bin/bash
+
+#Encrypt or decrpt and a file or entire directory.
+
+echo "Welcome, I am ready to encrypt/decrypt a file for you."
+echo -n "Enter the name of the file to work with: "
+read file_name
+
+file_path="$PWD/$file_name"
+
+echo -n "Enter (e) to encrypt or (d) to decrypt: "
+read choice
+echo
+
+if [ -f "$file_path" ]; then
+	if [ "$choice" = e ]; then
+		gpg -c --no-symkey-cache "$file_path"
+		echo "$file_name succesfully encrypted.  Removing unencrypted file..."
+		rm "$file_path"
+	elif [ "$choice" = d ]; then
+		gpg -d "$file_path"
+	else
+		echo "I'm sorry, $choice is not a viable option..."
+	fi
+else
+	echo "I'm sorry, $file_name is not a regular file..."
+	for file in "$PWD"/*; do
+		if [ -f "$file" ]; then
+			echo "Possible usage: $file"
+		fi
+	done
+fi
+
+echo
+echo "Current ecrypted files include: " $(ls | grep .gpg)
+
+

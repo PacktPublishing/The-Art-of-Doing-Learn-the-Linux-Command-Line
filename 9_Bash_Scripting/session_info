@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#Give specific info about the current session
+
+echo "The current date and time is $(date)"
+echo "The current user is $USER"
+echo "The current shell is $SHELL"
+echo "The current working directory is $PWD"
+
+echo "Your system has been up for $(uptime -p)"

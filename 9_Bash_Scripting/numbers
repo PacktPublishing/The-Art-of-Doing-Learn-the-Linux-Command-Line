@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#Add two numbers given by the user and log the result.
+
+echo -n "$USER, please enter a number: "
+read numA
+echo -n "$USER, please enter a second number: "
+read numB
+
+sum=$(($numA + $numB))
+echo "The sum of $numA and $numB is $sum"
+
+#Log script usage information
+echo $(id):$(date +%D):"$sum" >> "$HOME"/addition.log
+
